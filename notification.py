@@ -2,6 +2,7 @@ import smtplib
 from email.message import EmailMessage
 from dotenv import load_dotenv
 import os
+import datetime
 
 
 load_dotenv(override=True)
@@ -28,7 +29,7 @@ def send_notification(campsite_name, date, loop_name, campground_id):
 
             server.send_message(msg)
             server.quit()
-            print(f"Email sent successfully to {gateway_address}!")
+            print(f"{datetime.datetime.now()} Email sent successfully to {gateway_address}")
         except Exception as e:
             print(f"Failed to send email: {str(e)}")
     else:

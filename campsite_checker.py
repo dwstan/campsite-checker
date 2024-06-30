@@ -1,6 +1,7 @@
 import requests
 import time
 from notification import send_notification
+import datetime
 
 def avail_checker(timeout, dates, campground_ids):
     while True:
@@ -24,7 +25,7 @@ def avail_checker(timeout, dates, campground_ids):
                     if availability_key in campsite_info["availabilities"]:
                         availabilities = campsite_info["availabilities"][availability_key]
                         if availabilities == "Available":
-                            print(f"Campsite {campsite_name} is available on {date} in loop {loop_name}")
+                            print(f"{datetime.datetime.now()} Campsite {campsite_name} is available on {date} in loop {loop_name}")
                             send_notification(campsite_name, date, loop_name, campground_id)
         time.sleep(timeout * 60)
 
