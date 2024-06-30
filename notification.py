@@ -13,15 +13,12 @@ def send_notification(campsite_name, date):
     appkey = os.getenv('APPKEY')
     
     if sender_email and gateway_address and appkey:
-        campsite_name = "Example Campsite"
-        date = "2024-07-01"
-
         msg = EmailMessage()
-        msg.set_content(f"Campsite available!")
+        msg.set_content(f"Campsite {campsite_name} is available on {date}")
 
         msg['From'] = sender_email
         msg['To'] = gateway_address
-        msg['Subject'] = f"Campsite {campsite_name} is available on {date}"
+        msg['Subject'] = f"Campsite available!"
 
         try:
             server = smtplib.SMTP('smtp.gmail.com', 587)
