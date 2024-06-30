@@ -12,7 +12,7 @@ APPKEY = '16 digit gmail appkey here'
 
 Replace the email with a gmail account of your choice, gateway address is the phone number you want the text sent to, and appkey is the google appkey
 
-appkeys can be gotten [here](https://myaccount.google.com/apppasswords)
+appkeys can be acquired [here](https://myaccount.google.com/apppasswords)
 
 list of gateways for phone numbers can be found [here](https://avtech.com/articles/138/list-of-email-to-sms-addresses/)
 
