@@ -4,9 +4,9 @@ from notification import send_notification
 
 def avail_checker(timeout, dates, campground_ids):
     while True:
-        for campsite_id in campground_ids:
-            campground_id = campground_ids[campsite_id]
-            url = f"https://www.recreation.gov/api/camps/availability/campground/{campsite_id}/month?start_date=2024-07-01T00%3A00%3A00.000Z"
+        for campground_id in campground_ids:
+            
+            url = f"https://www.recreation.gov/api/camps/availability/campground/{campground_id}/month?start_date=2024-07-01T00%3A00%3A00.000Z"
             headers = {
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
             }
@@ -14,12 +14,17 @@ def avail_checker(timeout, dates, campground_ids):
             response = requests.get(url, headers=headers)
             data = response.json()
 
-            campsite_name = data["campsites"][campground_id]["site"]
+            for campsite_id, campsite_info in data["campsites"].items():
 
-            for date in dates:
-                availabilities = data["campsites"][campground_id]["availabilities"][date + "T00:00:00Z"]
-                if availabilities == "Open":
-                    print(f"Campsite {campsite_name} is available on {date}")
-                    send_notification(campsite_name, date)
+                campsite_name = campsite_info["site"]
+                loop_name = campsite_info["loop"]
+
+                for date in dates:
+                    availability_key = date + "T00:00:00Z"
+                    if availability_key in campsite_info["availabilities"]:
+                        availabilities = campsite_info["availabilities"][availability_key]
+                        if availabilities == "Available":
+                            print(f"Campsite {campsite_name} is available on {date} in loop {loop_name}")
+                            send_notification(campsite_name, date, loop_name, campground_id)
         time.sleep(timeout * 60)
 
