@@ -15,17 +15,20 @@ def avail_checker(timeout, dates, campground_ids):
             response = requests.get(url, headers=headers)
             data = response.json()
 
-            for campsite_id, campsite_info in data["campsites"].items():
+            try:
+                for campsite_id, campsite_info in data["campsites"].items():
 
-                campsite_name = campsite_info["site"]
-                loop_name = campsite_info["loop"]
+                    campsite_name = campsite_info["site"]
+                    loop_name = campsite_info["loop"]
 
-                for date in dates:
-                    availability_key = date + "T00:00:00Z"
-                    if availability_key in campsite_info["availabilities"]:
-                        availabilities = campsite_info["availabilities"][availability_key]
-                        if availabilities == "Available":
-                            print(f"{datetime.datetime.now()} Campsite {campsite_name} is available on {date} in loop {loop_name}")
-                            send_notification(campsite_name, date, loop_name, campground_id)
+                    for date in dates:
+                        availability_key = date + "T00:00:00Z"
+                        if availability_key in campsite_info["availabilities"]:
+                            availabilities = campsite_info["availabilities"][availability_key]
+                            if availabilities == "Available":
+                                print(f"{datetime.datetime.now()} Campsite {campsite_name} is available on {date} in loop {loop_name}")
+                                send_notification(campsite_name, date, loop_name, campground_id)
+            except Exception as e:
+                print(f"An error occurred: {e}")
         time.sleep(timeout * 60)
 
