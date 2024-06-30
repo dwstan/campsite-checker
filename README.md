@@ -1,7 +1,8 @@
 # campsite-checker
 
 Make a .env file in the root directory of this project
-It will have 3 fields:
+
+It should have the following 3 fields:
 
 ```
 SENDEREMAIL = 'email@gmail.com'
@@ -14,3 +15,11 @@ Replace the email with a gmail account of your choice, gateway address is the ph
 appkeys can be gotten [here](https://myaccount.google.com/apppasswords)
 
 list of gateways for phone numbers can be found [here](https://avtech.com/articles/138/list-of-email-to-sms-addresses/)
+
+In the `main.py` there are a few fields:
+
+dates: list of dates you want to check
+
+campground_ids: dictionary of campgrounds and the corresponding campsite
+
+timeout: how many minutes it waits before checking again
