@@ -6,14 +6,17 @@ import datetime
 def avail_checker(timeout, dates, campground_ids):
     while True:
         for campground_id in campground_ids:
-            
-            url = f"https://www.recreation.gov/api/camps/availability/campground/{campground_id}/month?start_date=2024-07-01T00%3A00%3A00.000Z"
-            headers = {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
-            }
+            try:
+                url = f"https://www.recreation.gov/api/camps/availability/campground/{campground_id}/month?start_date=2024-07-01T00%3A00%3A00.000Z"
+                headers = {
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+                }
 
-            response = requests.get(url, headers=headers)
-            data = response.json()
+                response = requests.get(url, headers=headers)
+                data = response.json()
+            except Exception as e:
+                print(f"{datetime.datetime.now()} An error occurred: {e}\nFailed to get data from {url}")
+                continue
             try:
                 for campsite_id, campsite_info in data["campsites"].items():
                     campsite_name = campsite_info["site"]
