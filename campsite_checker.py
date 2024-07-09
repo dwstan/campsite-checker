@@ -32,9 +32,9 @@ def avail_checker(timeout, dates, campground_ids):
             except Exception as e:
                 print(f"{datetime.datetime.now()} An error occurred: {e}\nThe data received was:\nCampsiteID:{campground_id}\n{data}")
 
-        current_time = datetime.datetime.now().strftime("%H:%M")
-        if current_time.endswith(":00") or current_time.endswith(":15") or current_time.endswith(":30") or current_time.endswith(":45"):
-            sanity_check()
+        # current_time = datetime.datetime.now().strftime("%H:%M")
+        # if current_time.endswith(":00") or current_time.endswith(":15") or current_time.endswith(":30") or current_time.endswith(":45"):
+        #     sanity_check()
         time.sleep(timeout * 60)
 
 

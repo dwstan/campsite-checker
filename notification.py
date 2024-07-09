@@ -13,12 +13,11 @@ gateway_address_list = gateway_address_str.split(',')
 appkey = os.getenv('APPKEY')
 
 def send_notification(campsite_name, date, loop_name, campground_id):
-
     
     if sender_email and gateway_address_list and appkey:
         for gateway_address in gateway_address_list:
             msg = EmailMessage()
-            msg.set_content(f"https://www.recreation.gov/camping/campgrounds/{campground_id} \nCamp {campsite_name} is avail {date}, loop {loop_name}")
+            msg.set_content(f"https://www.recreation.gov/camping/campgrounds/{campground_id} \nCamp {campsite_name} is avail {date}, loop {loop_name}\nunsubscribe at dereks.xyz\n{datetime.datetime.now()}")
             msg['From'] = sender_email
             msg['To'] = gateway_address
             msg['Subject'] = f"Campsite available!"
@@ -41,7 +40,7 @@ def sanity_check():
     if sender_email and gateway_address_list and appkey:
         
         msg = EmailMessage()
-        msg.set_content(f"System is online and running")
+        msg.set_content(f"System is online and running\nunsubscribe at dereks.xyz")
         msg['From'] = sender_email
         msg['To'] = gateway_address_list[0]
         msg['Subject'] = f"Sanity check passed"
