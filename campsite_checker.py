@@ -1,6 +1,6 @@
 import requests
 import time
-from notification import send_notification, sanity_check
+from notification import send_notification, sanity_check, open_browser
 import datetime
 
 def avail_checker(timeout, dates, campground_ids):
@@ -29,6 +29,7 @@ def avail_checker(timeout, dates, campground_ids):
                             if availabilities == "Available":
                                 print(f"{datetime.datetime.now()} Campsite {campsite_name} is available on {date} in loop {loop_name}")
                                 send_notification(campsite_name, date, loop_name, campground_id)
+                                open_browser(campground_id)
             except Exception as e:
                 print(f"{datetime.datetime.now()} An error occurred: {e}\nThe data received was:\nCampsiteID:{campground_id}\n{data}")
 

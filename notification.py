@@ -3,6 +3,7 @@ from email.message import EmailMessage
 from dotenv import load_dotenv
 import os
 import datetime
+import webbrowser
 
 
 load_dotenv(override=True)
@@ -34,6 +35,10 @@ def send_notification(campsite_name, date, loop_name, campground_id):
                 print(f"Failed to send email: {str(e)}")
     else:
         print("Environment variables not properly set.")
+
+def open_browser(campground_id):
+    chrome_path = 'C:/Program Files/Google/Chrome/Application/chrome.exe %s'
+    webbrowser.get(chrome_path).open(f"https://www.recreation.gov/camping/campgrounds/{campground_id}")
 
 
 def sanity_check():
