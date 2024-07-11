@@ -13,12 +13,12 @@ gateway_address_str = os.getenv('GATEWAYADDRESS')
 gateway_address_list = gateway_address_str.split(',')
 appkey = os.getenv('APPKEY')
 
-def send_notification(campsite_name, date, loop_name, campground_id):
+def send_notification(campsite_name, date, loop_name, campground_id, campsite_id):
     
     if sender_email and gateway_address_list and appkey:
         for gateway_address in gateway_address_list:
             msg = EmailMessage()
-            msg.set_content(f"https://www.recreation.gov/camping/campgrounds/{campground_id} \nCamp {campsite_name} is avail {date}, loop {loop_name}\nunsubscribe at dereks.xyz\n{datetime.datetime.now()}")
+            msg.set_content(f"https://www.recreation.gov/camping/campgrounds/{campground_id}\nhttps://www.recreation.gov/camping/campsites/{campsite_id}\nCamp {campsite_name} is avail {date}, loop {loop_name}\nunsubscribe at dereks.xyz\n{datetime.datetime.now()}")
             msg['From'] = sender_email
             msg['To'] = gateway_address
             msg['Subject'] = f"Campsite available!"
@@ -36,9 +36,9 @@ def send_notification(campsite_name, date, loop_name, campground_id):
     else:
         print("Environment variables not properly set.")
 
-def open_browser(campground_id):
+def open_browser(campground_id, campsite_id):
     chrome_path = 'C:/Program Files/Google/Chrome/Application/chrome.exe %s'
-    webbrowser.get(chrome_path).open(f"https://www.recreation.gov/camping/campgrounds/{campground_id}")
+    webbrowser.get(chrome_path).open(f"https://www.recreation.gov/camping/campsites/{campsite_id}")
 
 
 def sanity_check():

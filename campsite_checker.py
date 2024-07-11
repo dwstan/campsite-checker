@@ -28,8 +28,9 @@ def avail_checker(timeout, dates, campground_ids):
                             availabilities = campsite_info["availabilities"][availability_key]
                             if availabilities == "Available":
                                 print(f"{datetime.datetime.now()} Campsite {campsite_name} is available on {date} in loop {loop_name}")
-                                send_notification(campsite_name, date, loop_name, campground_id)
-                                open_browser(campground_id)
+                                open_browser(campground_id, campsite_id)
+                                send_notification(campsite_name, date, loop_name, campground_id, campsite_id)
+
             except Exception as e:
                 print(f"{datetime.datetime.now()} An error occurred: {e}\nThe data received was:\nCampsiteID:{campground_id}\n{data}")
 
