@@ -32,7 +32,6 @@ def avail_checker(timeout, dates, campground_ids):
                         loop_name = campsite_info["loop"]
 
                         for date in month_dates:
-                            print(date, month)
                             availability_key = date + "T00:00:00Z"
                             if availability_key in campsite_info["availabilities"]:
                                 availabilities = campsite_info["availabilities"][availability_key]
